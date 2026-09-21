@@ -15,7 +15,7 @@ public class Main {
 
 
         switch (opcion) {
-            case 1:
+            case 1: {
 
                 int num = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de experimentos"));
                 int numExperimentos [] = new int [num];
@@ -82,20 +82,60 @@ public class Main {
                 JOptionPane.showMessageDialog(null,"Probabilidad de acertar 1 o más : " + probablidad_acertar_uno);
                 JOptionPane.showMessageDialog(null,"Probabilidad de fallar todas : " + probablidad_de_ninguno);
 
-
-
-
-
-
                 break;
-            case 2:
 
-                break;
-            case 3:
+            }
 
+            case 2: {
+
+            int numeroSimulaciones = 30000;
+            int aciertos = 0;
+            int fallos = 0;
+
+            String[] cartas = {"Mago", "Oraculo", "Estrella"};
+
+            for (int simulacion = 1; simulacion <= numeroSimulaciones; simulacion++){
+
+                int aciertosEnLos10 = 0;
+
+                for (int intento = 0; intento < 10; intento++){
+
+                    int cartaHermana1 = (int) (Math.random() * 3);
+                    int cartaHermana2 = (int) (Math.random() * 3);
+
+                    if (cartaHermana1 == cartaHermana2) {
+                        aciertosEnLos10++;
+                    }
+                }
+
+                if (aciertosEnLos10 > 0) {
+                    aciertos++;
+                }else{
+                    fallos++;
+                }
+            }
+
+            double frecuenciaRelativa = (double) aciertos / numeroSimulaciones;
+
+            JOptionPane.showMessageDialog(null, "\n======== MODO AUTOMATICO ========");
+            JOptionPane.showMessageDialog(null, "Numero de simulaciones: " + numeroSimulaciones);
+            JOptionPane.showMessageDialog(null, "Cada simulación tiene 10 shows");
+            JOptionPane.showMessageDialog(null, String.format("%-20s %-10d", "Veces en las que acierta al menos 1: ", aciertos));
+            JOptionPane.showMessageDialog(null, String.format("%-20s %-10d", "Veces en las que no acierta ninguna: ", fallos));
+            JOptionPane.showMessageDialog(null, String.format("Frecuencia relativa: %.4f", frecuenciaRelativa));
+            JOptionPane.showMessageDialog(null, String.format("Probabilidad experimental: %.2f%%", frecuenciaRelativa * 100));
+
+            break;
+
+            }
+
+            case 3: {
+                JOptionPane.showMessageDialog(null, "Gracias por usar el programa!");
                 break;
+            }
+
             default:
-                System.out.println("Opcion no valida");
+                JOptionPane.showMessageDialog(null, "Opcion no valida, vuelva a intentarlo");
                 break;
 
         }
