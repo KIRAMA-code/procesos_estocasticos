@@ -43,7 +43,7 @@ public class Main {
                 String[] cartas = { "Mago", "Oráculo", "Estrella" };
                 Random random = new Random();
 
-                // Contadores para las iteraciones de 10 shows
+                // contadores para las iteraciones de 10 shows
                 int iteracionesConAlMenosUnAcierto = 0;
                 int iteracionesConCeroAciertos = 0;
 
@@ -53,7 +53,7 @@ public class Main {
                     logger.info("--- Iniciando Iteración {} (Bloque de 10 Shows) ---", i);
                     int aciertosEnEstaIteracion = 0;
 
-                    // Bucle interno: los 10 shows de ESTA iteración de forma aleatoria
+                    // bucle interno: los 10 shows de ESTA iteración de forma aleatoria
                     for (int j = 1; j <= 10; j++) {
                         String cartaHermana1 = cartas[random.nextInt(3)];
                         String cartaHermana2 = cartas[random.nextInt(3)];
@@ -68,7 +68,7 @@ public class Main {
                         }
                     }
 
-                    // Evaluación del bloque de 10 shows
+                    // evaluación del bloque de 10 shows
                     if (aciertosEnEstaIteracion > 0) {
                         iteracionesConAlMenosUnAcierto++;
                         logger.info("-> Resultado Iteración {}: Acertaron al menos uno (Total aciertos: {})", i,
@@ -81,14 +81,14 @@ public class Main {
 
                 logger.info("=== SIMULACIÓN FINALIZADA ===");
 
-                // Cálculos Teóricos vs Empíricos
+                // cálculos Teóricos vs Empíricos
                 double probTeoricaFallarTodos = Math.pow(2.0 / 3.0, 10);
                 double probTeoricaAlMenosUno = 1.0 - probTeoricaFallarTodos;
 
                 double probEmpiricaFallarTodos = (double) iteracionesConCeroAciertos / totalIteraciones;
                 double probEmpiricaAlMenosUno = (double) iteracionesConAlMenosUnAcierto / totalIteraciones;
 
-                // Formateo de los resultados para la pantalla
+                // formateo de los resultados para la pantalla
                 String mensajeFinal = String.format(
                         "Resultados de simular %d iteraciones (cada una de 10 shows):\n\n" +
                                 "► Probabilidad Empírica (basada en resultados aleatorios):\n" +
@@ -115,26 +115,31 @@ public class Main {
 
             case 2: {
 
+                //se asigna la cantidad de simulaciones que se haran (cada simulacion cuenta con 10 shows) y se definen las variables de aciertos y fallos
                 int numeroSimulaciones = 30000;
                 int aciertos = 0;
                 int fallos = 0;
 
-                String[] cartas = { "Mago", "Oraculo", "Estrella" };
-
+                //este es el for que controla las 30000 simulaciones
                 for (int simulacion = 1; simulacion <= numeroSimulaciones; simulacion++) {
 
+                    //aciertosEnLos10 cuenta cuantos aciertos hubieron dentro de la simulacion actual, y por cada simulacion se reinicia
                     int aciertosEnLos10 = 0;
 
+                    //aqui se hacen los 10 shows de cada simulacion
                     for (int intento = 0; intento < 10; intento++) {
 
+                        //se genera un numero aleatorio entre 0 y 2 para representar las cartas, cada carta de las hermanas se genera independientemente
                         int cartaHermana1 = (int) (Math.random() * 3);
                         int cartaHermana2 = (int) (Math.random() * 3);
 
+                        //si las cartas son iguales, aumentan los aciertos en esa simulacion
                         if (cartaHermana1 == cartaHermana2) {
                             aciertosEnLos10++;
                         }
                     }
 
+                    //si aciertosEnLos10 es mayor a 0 se considera "acertada" y aciertos aumenta, si no, fallos aumenta
                     if (aciertosEnLos10 > 0) {
                         aciertos++;
                     } else {
@@ -142,17 +147,17 @@ public class Main {
                     }
                 }
 
-                // Frecuencia relativa
+                // frecuencia relativa (el double garantiza que la division sea decimal)
                 double frecuenciaRelativa = (double) aciertos / numeroSimulaciones;
 
-                // Probabilidad experimental
+                // probabilidad experimental (para pasar a porcentaje se multiplica por 100)
                 double probabilidadExperimental = frecuenciaRelativa * 100;
 
-                // Probabilidad teórica
+                // probabilidad teórica (se eleva 2/3 porque queremos la prob. de fallar los 10 shows)
                 double probabilidadTeoricaFallarTodos = Math.pow(2.0 / 3.0, 10);
                 double probabilidadTeoricaAlMenosUno = 1.0 - probabilidadTeoricaFallarTodos;
 
-                // Mensaje final 
+                // mensaje final 
                 String mensajeFinal = String.format(
                         "Resultados de la simulación automática (%d simulaciones, cada una de 10 shows):\n\n" +
 
